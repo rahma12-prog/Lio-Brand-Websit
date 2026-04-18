@@ -1,0 +1,145 @@
+/* =========================Elements========================= */
+const cartPanel    = document.getElementById("cartPanel");
+const cartOverlay  = document.getElementById("cartOverlay");
+const cartContent  = document.getElementById("cartContent");
+const subtotalEl   = document.getElementById("subtotal");
+const closeCartBtn = document.getElementById("closeCart");
+const clearCartBtn = document.getElementById("clearCartBtn");
+const cartBtn      = document.getElementById("cartBtn");
+const cartCount    = document.getElementById("cartCount");
+
+/* =========================State========================= */
+let cart = [];
+
+/* =========================Open / Close Cart========================= */
+function openCart() {
+    cartPanel.classList.add("active");
+    cartOverlay.classList.add("active");
+}
+
+function closeCart() {
+    cartPanel.classList.remove("active");
+    cartOverlay.classList.remove("active");
+}
+
+cartBtn?.addEventListener("click", openCart);
+closeCartBtn.addEventListener("click", closeCart);
+cartOverlay.addEventListener("click", closeCart);
+
+/* =========================Add To Cart========================= */
+function addToCart(name, price, img) {
+    if (!name || !price || !img) {
+        console.error("Product data missing");
+        return;
+    }
+
+    const existingItem = cart.find(item => item.name === name);
+
+    if (existingItem) {
+        existingItem.qty++;
+    } else {
+        cart.push({
+            name: name,
+            price: price,
+            img: img,
+            qty: 1
+        });
+    }
+
+    renderCart();
+    openCart();
+}
+
+/* =========================Attach Add To Cart Buttons========================= */
+const addToCartBtns = document.querySelectorAll('.btn-add-to-cart');
+
+addToCartBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+        // أقرب كارد سواء product, training أو ball
+        const card = btn.closest('.product-card, .training-card, .ball-card');
+        if (!card) return;
+
+        const nameEl  = card.querySelector('.product-name');
+        const priceEl = card.querySelector('.product-price');
+        const imgEl   = card.querySelector('img');
+
+        if (!nameEl || !priceEl || !imgEl) {
+            console.error("Missing product elements");
+            return;
+        }
+
+        const name  = nameEl.textContent;
+        const price = parseFloat(priceEl.textContent.replace('$',''));
+        const img   = imgEl.src;
+
+        addToCart(name, price, img);
+    });
+});
+
+/* =========================Render Cart========================= */
+function renderCart() {
+    cartContent.innerHTML = "";
+    let subtotal = 0;
+    let totalItems = 0;
+
+    if (cart.length === 0) {
+        cartContent.innerHTML = `<p class="cart-empty">Your cart is empty</p>`;
+    }
+
+    cart.forEach((item, index) => {
+        subtotal += item.price * item.qty;
+        totalItems += item.qty;
+
+        const cartItemHTML = `
+        <article class="cart-item">
+            <img src="${item.img}" alt="${item.name}">
+            <div class="item-info">
+                <h3>${item.name}</h3>
+                <p class="price">$${item.price}</p>
+                <div class="qty-box">
+                    <button onclick="changeQty(${index}, -1)">
+                        <img src="assets/img/Icons/minus.svg">
+                    </button>
+                    <span>${item.qty}</span>
+                    <button onclick="changeQty(${index}, 1)">
+                        <img src="assets/img/Icons/plus.svg">
+                    </button>
+                </div>
+            </div>
+            <button class="delete-btn" onclick="removeItem(${index})">
+                <img src="assets/img/Icons/trash.svg">
+            </button>
+        </article>`;
+        
+        cartContent.innerHTML += cartItemHTML;
+    });
+
+    subtotalEl.textContent = `$${subtotal.toFixed(2)}`;
+    if (cartCount) cartCount.textContent = totalItems;
+}
+
+/* =========================Quantity Control========================= */
+function changeQty(index, change) {
+    cart[index].qty += change;
+
+    if (cart[index].qty <= 0) {
+        cart.splice(index, 1);
+    }
+
+    renderCart();
+}
+
+/* =========================Remove Single Item========================= */
+function removeItem(index) {
+    cart.splice(index, 1);
+    renderCart();
+}
+
+/* =========================Clear Cart========================= */
+clearCartBtn.addEventListener("click", () => {
+    cart = [];
+    renderCart();
+});
+
+/* =========================Init========================= */
+renderCart();

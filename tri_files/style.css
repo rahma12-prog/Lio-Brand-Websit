@@ -1,0 +1,961 @@
+:root {
+    --primary-color: #d40000;
+    --secondary-color: #244788;
+    --accent-color: #5271a1;
+    --background-dark: #050505;
+    --card-bg: #0e0e0e;
+    --text-color: #fff;
+    --font-family: 'Arial', sans-serif;
+    --border-radius: 18px;
+    --transition-speed: 0.3s;
+}
+
+/* ==========================GLOBAL STYLES=========================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: var(--font-family);
+}
+
+body {
+    background: var(--background-dark);
+    color: var(--text-color);
+}
+
+/* ==========================NAVBAR=========================== */
+.navbar {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 10;
+    background-color: #000;
+    transition: 0.3s;
+}
+
+.navbar.scrolled {
+    background: rgba(0, 0, 0, 0.8);
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 60px;
+}
+
+.logo {
+    font-size: 24px;
+    color: #00bcd4;
+    font-weight: bold;
+}
+
+.nav-links a {
+    margin: 0 15px;
+    color: #ccc;
+    text-decoration: none;
+}
+
+.nav-links a:hover {
+    color: #00bcd4;
+}
+
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    position: relative;
+}
+
+/* ===========User box============ */
+.user-box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    position: relative;
+}
+
+.auth {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.3s ease;
+}
+
+.auth img {
+    width: 22px;
+    filter: brightness(0) invert(1);
+}
+
+.user-box:hover .auth {
+    background: #00bcd4;
+}
+
+.user-box:hover .auth img {
+    filter: none;
+}
+
+.username {
+    display: none;
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.user-menu {
+    position: absolute;
+    top: 55px;
+    right: 0;
+    background: #111;
+    border: 1px solid #00bcd4;
+    border-radius: 8px;
+    display: none;
+    flex-direction: column;
+    min-width: 140px;
+    z-index: 100;
+}
+
+.user-menu.show {
+    display: flex;
+}
+
+.user-menu button {
+    background: transparent;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    text-align: left;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.user-menu button:hover {
+    background: #00bcd4;
+    color: #000;
+}
+
+/* ===========Cart========= */
+.cart-icon {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: transparent;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    position: relative;
+    transition: 0.3s ease;
+}
+
+.cart-icon img {
+    width: 22px;
+    filter: brightness(0) invert(1);
+    transition: 0.3s ease;
+}
+
+.cart-icon:hover {
+    background: #00bcd4;
+}
+
+.cart-icon:hover img {
+    filter: none;
+    transform: scale(1.1);
+}
+
+.cart-count {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    width: 18px;
+    height: 18px;
+    background: red;
+    color: #fff;
+    font-size: 11px;
+    font-weight: bold;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ==============Menu Toggle========== */
+.menu-toggle {
+    display: none;
+    width: 45px;
+    height: 45px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+}
+
+.menu-toggle img {
+    width: 22px;
+    filter: brightness(0) invert(1);
+    transition: 0.3s ease;
+}
+
+.menu-toggle:hover {
+    background: #00bcd4;
+    border-radius: 50%;
+}
+
+.menu-toggle:hover img {
+    filter: none;
+    transform: scale(1.1);
+}
+
+/* ================= Responsive ================= */
+@media (max-width: 992px) {
+    .nav-links {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: #000;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+        padding: 25px 0;
+        display: none;
+        border-top: 1px solid #111;
+    }
+
+    .nav-links.active {
+        display: flex;
+    }
+
+    .menu-toggle {
+        display: flex;
+        order: -1;
+    }
+}
+
+/* ========================= Hero Section ========================= */
+.hero {
+    height: 100vh;
+    background: url("../images/hero.jpg") center/cover no-repeat;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding-left: 80px;
+    overflow: hidden;
+}
+
+.overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, #000 40%, transparent);
+}
+
+.hero-content {
+    position: relative;
+    max-width: 500px;
+}
+
+.hero-content h1 {
+    font-size: 90px;
+    color: #00bcd4;
+}
+
+.hero-content h2 {
+    font-size: 40px;
+    margin: 10px 0;
+}
+
+.hero-content strong {
+    color: red;
+}
+
+.hero-content p {
+    opacity: 0.8;
+    margin: 15px 0 30px;
+}
+
+.btn {
+    padding: 15px 40px;
+    background: #00bcd4;
+    border: none;
+    color: #000;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn:hover {
+    background: #fff;
+}
+
+.hero-ball {
+    position: absolute;
+    right: 80px;
+    bottom: 80px;
+    width: 280px;
+    max-width: 20%;
+    animation: float 4s ease-in-out infinite;
+}
+
+.hero-ball img {
+    width: 100%;
+    filter: drop-shadow(0 0 30px rgb(212, 0, 0));
+}
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+/* ================= Hero Responsive ================= */
+@media (max-width: 992px) {
+    .hero {
+        padding: 100px 20px 50px;
+        justify-content: center;
+        text-align: center;
+        height: auto;
+    }
+
+    .overlay {
+        background: rgba(0, 0, 0, 0.7);
+    }
+
+    .hero-content {
+        max-width: 100%;
+    }
+
+    .hero-content h1 {
+        font-size: 45px;
+    }
+
+    .hero-content h2 {
+        font-size: 20px;
+    }
+
+    .hero-content p {
+        font-size: 14px;
+    }
+
+    .btn {
+        padding: 12px 30px;
+        font-size: 14px;
+    }
+
+    .hero-ball {
+        position: relative;
+        width: 150px;
+        margin: 20px auto 0;
+        animation: float 4s ease-in-out infinite;
+    }
+}
+
+/* ==========================P R O D U C T S=========================== */
+
+/* ==========================SECTION HEADER=========================== */
+.section-header {
+    text-align: center;
+    margin-bottom: 70px;
+}
+
+.section-title {
+    font-size: 38px;
+    letter-spacing: 3px;
+}
+
+.section-divider {
+    display: block;
+    width: 90px;
+    height: 3px;
+    margin: 15px auto 0;
+    background: linear-gradient(to right, var(--primary-color), red);
+}
+
+/* ==========================GRIDS=========================== */
+.products-grid,
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 35px;
+}
+
+/* ==========================PRODUCT / BOOT / WEAR / LIFESTYLE CARD=========================== */
+.product-card,
+.training-card {
+    position: relative;
+    background: var(--card-bg);
+    padding: 25px;
+    border-radius: var(--border-radius);
+    text-align: center;
+    transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+    overflow: hidden;
+}
+
+/* ==========================BADGE=========================== */
+.product-badge {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    padding: 5px 12px;
+    font-size: 12px;
+    font-weight: bold;
+    border-radius: 20px;
+    color: #fff;
+    transition: var(--transition-speed);
+}
+
+.product-badge--new {
+    background: var(--primary-color);
+}
+
+.product-badge--sale {
+    background: red;
+}
+
+/* ==========================IMAGE CONTAINERS=========================== */
+.product-image,
+.training-image {
+    height: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.product-image img,
+.training-image img {
+    width: 100%;
+    max-height: 160px;
+    object-fit: contain;
+    transition: transform var(--transition-speed) ease;
+}
+
+/* ==========================TEXT=========================== */
+.product-name,
+.training-name {
+    margin: 20px 0 10px;
+    font-size: 18px;
+}
+
+.product-price,
+.training-price {
+    color: var(--primary-color);
+    font-size: 20px;
+    font-weight: bold;
+}
+
+/* ==========================BUTTONS=========================== */
+.btn {
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all var(--transition-speed) ease;
+}
+
+.btn-add-to-cart {
+    margin-top: 15px;
+    padding: 12px 25px;
+    background: transparent;
+    border: 2px solid var(--primary-color);
+    color: var(--primary-color);
+    opacity: 0;
+}
+
+/* ==========================HOVER EFFECTS=========================== */
+.product-card:hover,
+.training-card:hover {
+    transform: translateY(-15px);
+    box-shadow: 0 25px 50px rgba(0, 188, 212, 0.25);
+}
+
+.product-card:hover img,
+.training-card:hover img {
+    transform: scale(1.1) rotate(-6deg);
+}
+
+.product-card:hover .btn-add-to-cart,
+.training-card:hover .btn-add-to-cart {
+    opacity: 1;
+    background: var(--primary-color);
+    color: #000;
+}
+
+/* ==========================SPECIFIC SECTION PADDING=========================== */
+.boots-section,
+.wears-section,
+.training-section,
+.lifestyle-section {
+    padding: 100px 80px;
+}
+
+/* ==========================RESPONSIVE=========================== */
+@media (max-width: 1024px) {
+
+    .boots-section,
+    .wears-section,
+    .training-section,
+    .lifestyle-section {
+        padding: 80px 50px;
+    }
+}
+
+@media (max-width: 768px) {
+
+    .boots-section,
+    .wears-section,
+    .training-section,
+    .lifestyle-section {
+        padding: 60px 30px;
+    }
+}
+
+@media (max-width: 480px) {
+    .section-title {
+        font-size: 28px;
+    }
+
+    .product-price,
+    .training-price {
+        font-size: 18px;
+    }
+}
+
+/* ==========================BALLS SECTION=========================== */
+
+.balls {
+    padding: 100px 80px;
+    background: radial-gradient(circle at top, #0a0a0a, #000);
+}
+
+/* =================Layout================= */
+.balls-wrapper {
+    display: flex;
+    justify-content: center;
+    gap: 80px;
+    flex-wrap: wrap;
+}
+
+/* ==========Card========== */
+.ball-card {
+    text-align: center;
+    transition: 0.4s;
+}
+
+/* ============Circle Image============ */
+.ball-img {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: #111;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    box-shadow: 0 0 30px rgba(0, 188, 212, 0.2);
+    transition: 0.4s;
+}
+
+.ball-img img {
+    width: 70%;
+    animation: spin 8s linear infinite;
+}
+
+/* ===========Text=============== */
+.ball-card h3 {
+    margin-bottom: 5px;
+}
+
+.ball-card p {
+    color: #00bcd4;
+    font-weight: bold;
+}
+
+/* ==========Hover============ */
+.ball-card:hover .ball-img {
+    transform: translateY(-15px);
+    box-shadow: 0 0 50px rgba(0, 188, 212, 0.5);
+}
+
+.ball-card:hover img {
+    animation-play-state: paused;
+}
+
+/* =========Spin Animation========== */
+@keyframes spin {
+    from {
+        transform: rotate(0);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* ==========================FOOTER=========================== */
+
+.footer {
+    background: #050505;
+    padding: 70px 80px 0;
+    border-top: 1px solid #111;
+    color: #aaa;
+}
+
+.footer-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 50px;
+    margin-bottom: 40px;
+}
+
+/* ===========Boxes======== */
+.footer-box h2,
+.footer-box h3 {
+    color: #00bcd4;
+    margin-bottom: 15px;
+}
+
+.footer-brand p {
+    line-height: 1.7;
+    max-width: 320px;
+}
+
+/* =========Links======== */
+.footer-links {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-links li {
+    margin-bottom: 10px;
+}
+
+.footer-links a {
+    color: #aaa;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.footer-links a:hover {
+    color: #00bcd4;
+}
+
+/* =======Bottom====== */
+.footer-bottom {
+    border-top: 1px solid #111;
+    padding: 20px 0;
+    text-align: center;
+    font-size: 14px;
+    color: #666;
+}
+
+
+/* ==========================CART PANEL=========================== */
+/* ===================== Overlay ===================== */
+.cart-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.3s;
+    z-index: 20;
+}
+
+.cart-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* ============Cart Panel============ */
+.cart-panel {
+    position: fixed;
+    top: 0;
+    right: -420px;
+    width: 420px;
+    max-width: 100%;
+    height: 100vh;
+    background: #0e0e0e;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    transition: 0.4s ease;
+    z-index: 30;
+    box-shadow: -4px 0 15px rgba(0, 0, 0, 0.5);
+}
+
+.cart-panel.active {
+    right: 0;
+}
+
+/* ============Header============ */
+.cart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid #222;
+}
+
+.cart-header h2 {
+    color: #00bcd4;
+    font-size: 20px;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    font-size: 22px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+/* ==============Content============= */
+.cart-content {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.cart-empty {
+    text-align: center;
+    opacity: 0.6;
+    margin-top: 100px;
+    font-size: 16px;
+}
+
+/* ==============Cart Item============== */
+.cart-item {
+    display: flex;
+    gap: 15px;
+    background: #111;
+    padding: 15px;
+    border-radius: 12px;
+    margin-bottom: 15px;
+    align-items: center;
+}
+
+.cart-item img {
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+/* ============Item Info============ */
+.item-info h3 {
+    font-size: 14px;
+    margin-bottom: 4px;
+    color: #fff;
+}
+
+.price {
+    color: #00bcd4;
+    font-size: 14px;
+}
+
+/* ==============Quantity Control============== */
+.qty-box {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 8px;
+}
+
+.qty-box button {
+    width: 28px;
+    height: 28px;
+    background: #111;
+    border: 1px solid #00bcd4;
+    border-radius: 6px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2px;
+}
+
+.qty-box button img {
+    width: 16px;
+    height: 16px;
+    object-fit: contain;
+    filter: invert(100%) brightness(100%);
+}
+
+.qty-box span {
+    min-width: 22px;
+    text-align: center;
+    display: inline-block;
+    color: #fff;
+}
+
+/* ==============Delete Button============== */
+.delete-btn {
+    margin-left: auto;
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    padding: 2px;
+}
+
+.delete-btn img {
+    width: 22px;
+    height: 22px;
+    object-fit: contain;
+    filter: invert(23%) sepia(100%) saturate(7500%) hue-rotate(356deg) brightness(92%) contrast(105%);
+
+}
+
+/* ==============Footer============== */
+.cart-footer {
+    padding: 20px;
+    border-top: 1px solid #222;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.subtotal {
+    display: flex;
+    justify-content: space-between;
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.checkout-btn {
+    width: 100%;
+    padding: 14px;
+    background: #00bcd4;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.checkout-btn:hover {
+    background: #00a1c3;
+}
+
+.clear-btn {
+    width: 100%;
+    padding: 12px;
+    background: transparent;
+    border: 1px solid red;
+    color: red;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.clear-btn:hover {
+    background: red;
+    color: #000;
+}
+
+/* ==============Responsive============== */
+@media (max-width: 480px) {
+    .cart-panel {
+        width: 100%;
+    }
+
+    .cart-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .qty-box {
+        margin-top: 10px;
+    }
+
+    .item-info h3,
+    .price {
+        font-size: 13px;
+    }
+
+    .qty-box button {
+        width: 26px;
+        height: 26px;
+    }
+
+    .qty-box button img {
+        width: 14px;
+        height: 14px;
+    }
+
+    .delete-btn img {
+        width: 16px;
+        height: 16px;
+    }
+}
+.social-icons a {
+    color: #aaa;
+    font-size: 20px;
+    margin-right: 15px;
+    transition: 0.3s;
+}
+.about {
+  padding: 60px 10%;
+  color: white;
+}
+
+.about-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+}
+.logo {
+    font-size: 24px;
+    color: #00bcd4;
+    font-weight: bold;
+}
+.about-text {
+  flex: 1;
+}
+
+.about-text h1 {
+  font-size: 40px;
+  margin-bottom: 20px;
+}
+
+.about-text p {
+  line-height: 1.8;
+  margin-bottom: 20px;
+}
+
+.features div {
+  margin-bottom: 10px;
+  font-size: 18px;
+}
+
+.btn {
+  margin-top: 20px;
+  padding: 10px 20px;
+  border: none;
+  background: #00adb5;
+  color: white;
+  cursor: pointer;
+  border-radius: 8px;
+}
+
+.about-img img {
+  width: 300px;
+  border-radius: 15px;
+}
